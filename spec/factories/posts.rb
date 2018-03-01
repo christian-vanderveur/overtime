@@ -11,4 +11,10 @@ FactoryBot.define do
     rational "Some more content"
     user
   end
+
+    factory :post_from_other_user, class: "Post" do
+    date Date.yesterday
+    rational "Some more content"
+    non_authorized_user
+  end
 end
