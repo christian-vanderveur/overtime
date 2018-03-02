@@ -19,7 +19,7 @@ FactoryBot.define do
     password_confirmation "asdfasdf"
   end
 
-  factory :non_auhtorized_user, class: "User" do
+  factory :non_authorized_user, class: "User" do
     first_name 'Non'
     last_name 'Authorized'
     email { generate :email }

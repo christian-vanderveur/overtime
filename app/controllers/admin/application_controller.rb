@@ -4,21 +4,27 @@
 #
 # If you want to add pagination or other controller-level concerns,
 # you're free to overwrite the RESTful controller actions.
-class ApplicationController < ActionController::Base
-  include Pundit
+ 
+module Admin
+  def self.admin_types
+    ['AdminUser']
+  end
 
-  protect_from_forgery with: :exception
-  before_action :authenticate_user!
+  class ApplicationController < Administrate::ApplicationController
+    before_action :authenticate_user!
+    before_action :authenticate_admin
 
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+    def authenticate_admin
+      unless Admin.admin_types.include?(current_user.try(:type))
+        flash[:alert] = "You are not authorized to access this page."
+        redirect_to(root_path)
+      end
+    end
 
-  private
-
-  def user_not_authorized
-    flash[:alert] = "You are not authorized to perform this action."
-    redirect_to(root_path)
+    # Override this value to specify the number of elements to display at a time
+    # on index pages. Defaults to 20.
+    # def records_per_page
+    #   params[:per_page] || 20
+    # end
   end
 end
-
-
- 
