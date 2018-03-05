@@ -17,4 +17,4 @@
   </div>
 </div>
 
-<%= link_to 'edit', edit_post_path(@post) class: 'btn btn-primary' if policy(@post).update %>
+<%= link_to 'edit', edit_post_path(@post), class: 'btn btn-primary' if policy(@post).update? %>

@@ -4,7 +4,7 @@ describe 'navigate' do
   let(:user) { FactoryBot.create(:user) }
 
   let(:post) do
-    Post.create(date: Date.today, Rational: "Rational", user_id: user.id, overtime_request: 3.5)
+    Post.create(date: Date.today, rational: "rational", user_id: user.id, overtime_request: 3.5)
   end
 
   before do
@@ -33,7 +33,7 @@ describe 'navigate' do
 
     it 'has a scope so that only post creators can see their posts' do
       other_user = User.create(first_name: 'Non', last_name: 'Authorized', email: "nonauth@example.com", password: "asdfasdf", password_confirmation: "asdfasdf")
-      post_from_other_user = Post.create(date: Date.today, Rational: "This post shouldn't be seen", user_id: other_user.id, overtime_request: 3.5)
+      post_from_other_user = Post.create(date: Date.today, rational: "This post shouldn't be seen", user_id: other_user.id, overtime_request: 3.5)
 
       visit posts_path
 
@@ -57,7 +57,7 @@ describe 'navigate' do
       delete_user = FactoryBot.create(:user)
       login_as(delete_user, :scope => :user)
 
-      post_to_delete = Post.create(date: Date.today, Rational: 'asdf', user_id: delete_user.id, overtime_request: 3.5)
+      post_to_delete = Post.create(date: Date.today, rational: 'asdf', user_id: delete_user.id, overtime_request: 3.5)
 
       visit posts_path
 
@@ -77,7 +77,7 @@ describe 'navigate' do
 
     it 'can be created from new form page' do
       fill_in 'post[date]', with: Date.today
-      fill_in 'post[Rational]', with: "Some Rational"
+      fill_in 'post[rational]', with: "Some rational"
       fill_in 'post[overtime_request]', with: 4.5
 
       expect { click_on "Save" }.to change(Post, :count).by(1)
@@ -85,11 +85,11 @@ describe 'navigate' do
 
     it 'will have a user associated it' do
       fill_in 'post[date]', with: Date.today
-      fill_in 'post[Rational]', with: "User Association"
+      fill_in 'post[rational]', with: "User Association"
       fill_in 'post[overtime_request]', with: 4.5
       click_on "Save"
 
-      expect(User.last.posts.last.Rational).to eq("User Association")
+      expect(User.last.posts.last.rational).to eq("User Association")
     end
   end
 
@@ -98,7 +98,7 @@ describe 'navigate' do
       visit edit_post_path(post)
 
       fill_in 'post[date]', with: Date.today
-      fill_in 'post[Rational]', with: "Edited content"
+      fill_in 'post[rational]', with: "Edited content"
       click_on "Save"
 
       expect(page).to have_content("Edited content")
