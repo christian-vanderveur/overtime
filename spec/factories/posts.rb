@@ -10,7 +10,7 @@ FactoryBot.define do
   factory :second_post, class: "Post" do
     date Date.yesterday
     rational "Some more content"
-    overtime_request 0.5
+    overtime_request 1.0
     user
   end
 end

@@ -88,7 +88,7 @@ describe 'navigate' do
       fill_in 'post[rational]', with: "User Association"
       fill_in 'post[overtime_request]', with: 4.5
       click_on "Save"
-
+      
       expect(User.last.posts.last.rational).to eq("User Association")
     end
   end
